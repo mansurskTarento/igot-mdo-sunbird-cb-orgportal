@@ -4,16 +4,18 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { ApprovalsService } from '../../services/approvals.service'
 import moment from 'moment'
 import { ITableData } from '@sunbird-cb/collection/lib/ui-org-table/interface/interfaces'
-import { MatSnackBar } from '@angular/material'
+import { MatSnackBar, PageEvent } from '@angular/material'
 /* tslint:disable */
 import _ from 'lodash'
 import { EventService } from '@sunbird-cb/utils'
 import { TelemetryEvents } from '../../../../head/_services/telemetry.event.model'
+import { LoaderService } from '../../../../../../../../../src/app/services/loader.service'
 /* tslint:enable */
 @Component({
   selector: 'ws-app-approvals',
   templateUrl: './approvals.component.html',
   styleUrls: ['./approvals.component.scss'],
+  providers: [LoaderService],
 })
 export class ApprovalsComponent implements OnInit, OnDestroy {
   data: any[] = []
@@ -21,6 +23,10 @@ export class ApprovalsComponent implements OnInit, OnDestroy {
   discussionList!: any
   discussProfileData!: any
   departName = ''
+  approvalDataTotalCount?: number | 0
+  limit = 20
+  pageIndex = 0
+  currentOffset = 0
   tabledata: ITableData = {
     // actions: [{ name: 'Approve', label: 'Approve', icon: 'remove_red_eye', type: 'Approve' },
     // { name: 'Reject', label: 'Reject', icon: 'remove_red_eye', type: 'Reject' }],
@@ -45,6 +51,7 @@ export class ApprovalsComponent implements OnInit, OnDestroy {
     private activeRouter: ActivatedRoute,
     private route: ActivatedRoute,
     private events: EventService,
+    private loaderService: LoaderService,
     // private telemetrySvc: TelemetryService,
     private snackbar: MatSnackBar) {
     this.configSvc = this.route.parent && this.route.parent.snapshot.data.configService
@@ -116,18 +123,23 @@ export class ApprovalsComponent implements OnInit, OnDestroy {
   }
 
   fetchApprovals() {
+    this.loaderService.changeLoad.next(true)
+    this.data = []
     if (this.departName) {
       const req = {
         serviceName: 'profile',
         applicationStatus: 'SEND_FOR_APPROVAL',
         deptName: this.departName,
-        offset: 0,
-        limit: 100,
+        offset: this.currentOffset,
+        limit: this.limit,
       }
       this.apprService.getApprovals(req).subscribe(res => {
         let currentdate: Date
-        // console.log("result ", res)
-        res.result.data.forEach((approval: any) => {
+        let resData = res.result.data
+        this.approvalDataTotalCount = res.result.count
+
+        // console.log('approval count', this.approvalDataTotalCount)
+        resData.forEach((approval: any) => {
           let keys = ''
           approval.wfInfo.forEach((wf: any) => {
             currentdate = new Date(wf.createdOn)
@@ -169,6 +181,13 @@ export class ApprovalsComponent implements OnInit, OnDestroy {
   get getTableData() {
     // console.log("table data", this.data)
     return this.data
+  }
+
+  onPaginateChange(event: PageEvent) {
+    this.pageIndex = event.pageIndex
+    this.limit = event.pageSize
+    this.currentOffset = event.pageIndex
+    this.fetchApprovals()
   }
 
   ngOnDestroy(): void { }

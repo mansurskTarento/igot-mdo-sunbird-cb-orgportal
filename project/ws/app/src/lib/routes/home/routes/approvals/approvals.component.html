@@ -23,10 +23,17 @@
             (click)="filter('userflags')" role="button">User flags</a> -->
         </div>
       </div>
-      <ng-container *ngIf="getTableData && getTableData.length>0">
+      <!-- <ng-container *ngIf="getTableData && getTableData.length>0">
         <ws-widget-org-user-table [tableData]='tabledata' [data]='getTableData' (eOnRowClick)="onApprovalClick($event)">
         </ws-widget-org-user-table>
+      </ng-container> -->
+      <ng-container *ngIf="getTableData && getTableData.length>0">
+        <ws-widget-org-user-table-v2 [tableData]='tabledata' [data]='getTableData'
+          [totalRecords]="approvalDataTotalCount" (pageChangeClick)="onPaginateChange($event)"
+          (eOnRowClick)="onApprovalClick($event)">
+        </ws-widget-org-user-table-v2>
       </ng-container>
+
       <ng-container *ngIf="!getTableData || getTableData.length<=0">
         <p class="text-center">No approvals pending</p>
       </ng-container>
