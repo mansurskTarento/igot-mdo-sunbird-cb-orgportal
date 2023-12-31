@@ -135,7 +135,7 @@ export class ApprovalsComponent implements OnInit, OnDestroy {
       }
       this.apprService.getApprovals(req).subscribe(res => {
         let currentdate: Date
-        let resData = res.result.data
+        const resData = res.result.data
         this.approvalDataTotalCount = res.result.count
 
         // console.log('approval count', this.approvalDataTotalCount)
