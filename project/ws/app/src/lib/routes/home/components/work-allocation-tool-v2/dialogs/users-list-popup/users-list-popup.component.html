@@ -1,0 +1,33 @@
+<div class="users-list-popup flex flex-column gap-4 my-4">
+  <!-- #region (header) -->
+  <div class="flex justify-between items-center">
+    <div class="title">Add User</div>
+    <mat-icon class="close-icon" (click)="closePopup()">close</mat-icon>
+  </div>
+  <!-- #endregion (header) -->
+
+  <div class="flex flex-column gap-2">
+    <div class="form-label required">
+      Add Users
+    </div>
+    <div class="flex items-center gap-3 search">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-icon matPrefix class="color-60 mat-icon notranslate material-icons mat-icon-no-color">search</mat-icon>
+        <input matInput placeholder="Search user by Name, Email and Phone Number, Designation"
+          [formControl]="userSearch">
+      </mat-form-field>
+      <button mat-button class="flex justify-center items-center search-btn" (click)="onUserSearch()">Search</button>
+    </div>
+  </div>
+
+  <div>
+    <ng-container *ngFor="let user of selectedUsersList">
+      <div>{{ user.name }}</div>
+    </ng-container>
+  </div>
+
+  <div class="flex-grow">
+    <ws-app-shared-table [tableData]="usersTableData" [data]="usersList"
+      (rowSelectionChange)="onRowSelectionChange($event)"></ws-app-shared-table>
+  </div>
+</div>

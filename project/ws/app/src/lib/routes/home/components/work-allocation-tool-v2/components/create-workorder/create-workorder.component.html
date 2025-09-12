@@ -1,0 +1,36 @@
+<div class="w-full flex flex-column create-workorder">
+  <!-- #region (breadcrumb) -->
+  <div class="breadcrum flex items-center justify-between">
+    <div class="flex gap-2 items-center">
+      <mat-icon class="back-arrow" (click)="openConfirmationPopup()">arrow_back</mat-icon>
+      <span class="work-allocation-text">Work Allocation Tool</span>
+      <mat-icon class="chevron-arrow">chevron_right</mat-icon>
+      <span class="create-workorder-text">Create Workorder</span>
+    </div>
+
+    <button mat-raised-button class="flex justify-center items-center next-btn" (click)="moveToNextForm()">Next</button>
+  </div>
+  <!-- #endregion (breadcrumb) -->
+
+  <!-- #region (stepper) -->
+  <mat-stepper labelPosition="bottom" [selectedIndex]="currentStepperIndex"
+    (selectionChange)="onSelectionChange($event)" class="mx-10" #stepper>
+    <mat-step label="Add Users">
+      <ng-template matStepLabel>Add Users</ng-template>
+      <ws-app-add-users></ws-app-add-users>
+    </mat-step>
+
+    <mat-step label="Map roles & activities">
+      <ng-template matStepLabel>Map roles & activities</ng-template>
+      <ws-app-map-roles-activities></ws-app-map-roles-activities>
+    </mat-step>
+
+    <mat-step label="Preview">
+      <ng-template matStepLabel>Preview</ng-template>
+      <ws-app-workorder-preview></ws-app-workorder-preview>
+    </mat-step>
+  </mat-stepper>
+  <!-- #endregion (stepper) -->
+
+
+</div>

@@ -435,6 +435,10 @@ const routes: Routes = [
         ),
       },
       {
+        path: 'work-allocation',
+        loadChildren: () => import('./components/work-allocation-tool-v2/work-allocation-tool-v2.module').then(m => m.WorkAllocationToolV2Module)
+      },
+      {
         path: 'manage-groups-grade',
         component: GroupsGradeComponent,
         data: {

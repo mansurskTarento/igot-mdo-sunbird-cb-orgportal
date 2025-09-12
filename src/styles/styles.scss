@@ -870,3 +870,35 @@ h3.shepherd-title {
   color: white!important;
   opacity: 0.6!important;
 }
+
+.mat-forms-round {
+  .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 4px 0px 11px 5px;
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-outline-end {
+    border-left-style: solid !important;
+    border-radius: 25px !important;
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-outline-start {
+    display: none;
+  }
+
+  .mat-form-field-wrapper {
+    padding-bottom: 0px !important;
+  }
+
+  .mat-form-field-subscript-wrapper {
+    margin-top: 25px !important;
+  }
+}
+
+.mat-forms-round-disabled {
+  .mat-form-field-appearance-outline .mat-form-field-outline-end {
+    background-color: #EBEBEB;
+
+
+  }
+}
+

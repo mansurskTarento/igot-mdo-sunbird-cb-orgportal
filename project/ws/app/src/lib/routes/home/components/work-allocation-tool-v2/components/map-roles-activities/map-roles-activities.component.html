@@ -1,0 +1,242 @@
+<div class="flex flex-column gap-4 mt-4">
+  <div class="flex gap-4">
+    <div class="flex flex-column gap-2 mat-forms-round w-full mat-forms-round-disabled">
+      <div class="form-label required">
+        Work order Name
+      </div>
+      <mat-form-field appearance="outline">
+        <input matInput [formControl]="workOrderName">
+      </mat-form-field>
+    </div>
+
+    <div class="flex flex-column gap-2 mat-forms-round w-full mat-forms-round-disabled">
+      <div class="form-label required">
+        Designation
+      </div>
+      <mat-form-field appearance="outline">
+        <input matInput [formControl]="designation">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="">
+    <div class="form-label required">
+      Add Description
+    </div>
+    <mat-form-field class="w-full">
+      <textarea matInput [formControl]="description" rows="5" placeholder="Start typing"></textarea>
+      <mat-error *ngIf="description.invalid && (description.dirty || description.touched)">
+        Only ( a-z/A-Z , 0-9 . - _ $ / : [ ]' ' !) characters are supported.
+      </mat-error>
+    </mat-form-field>
+    <span class="flex justify-end description-count">{{description.value.length}}/500</span>
+  </div>
+
+  <div class="flex flex-column gap-2">
+    <div class="form-label required">Add Role & Activities</div>
+    <!-- <div>
+      <table class="custom-table">
+        <colgroup>
+          <col style="width: 25%;">
+          <col style="width: 25%;">
+          <col style="width: 25%;">
+          <col style="width: 25%;">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Roles</th>
+            <th>Type</th>
+            <th>Activities</th>
+            <th>Submission from</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of rolesActivities">
+            <td>
+              <div class="cell-list">
+                <div class="cell-item">
+                  {{ row.role }}
+                  <span class="cell-actions">
+                    <mat-icon>edit</mat-icon>
+                    <mat-icon>delete</mat-icon>
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="cell-list">
+                <div class="cell-item">
+                  {{ row.type }}
+                  <span class="cell-actions">
+                    <mat-icon>edit</mat-icon>
+                    <mat-icon>delete</mat-icon>
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="cell-list">
+                <div class="cell-item" *ngFor="let activity of row.activities">
+                  {{ activity }}
+                  <span class="cell-actions">
+                    <mat-icon>edit</mat-icon>
+                    <mat-icon>delete</mat-icon>
+                  </span>
+                </div>
+                <button mat-button class="add-btn">+ Add activity</button>
+              </div>
+            </td>
+            <td>
+              <div class="cell-list">
+                <div class="cell-item" *ngFor="let submission of row.submissions">
+                  {{ submission }}
+                  <span class="cell-actions">
+                    <mat-icon>edit</mat-icon>
+                    <mat-icon>delete</mat-icon>
+                  </span>
+                </div>
+                <button mat-button class="add-btn">+ Add submission from</button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button mat-button class="add-btn">+ Add a role</button>
+            </td>
+            <td>
+              <button mat-button class="add-btn">+ Add a type for the role</button>
+            </td>
+            <td>
+              <button mat-button class="add-btn">+ Add a activity</button>
+            </td>
+            <td>
+              <button mat-button class="add-btn">+ Add submission from</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div> -->
+
+
+    <div>
+      <table class="custom-table">
+        <colgroup>
+          <col style="width: 25%;">
+          <col style="width: 25%;">
+          <col style="width: 25%;">
+          <col style="width: 25%;">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Roles</th>
+            <th>Type</th>
+            <th>Activities</th>
+            <th>Submission from</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let row of rolesActivities">
+            <tr>
+              <td [attr.rowspan]="row.activities.length">
+                <div class="cell-list">
+                  <div class="cell-item">
+                    {{ row.role }}
+                    <span class="cell-actions">
+                      <mat-icon>edit</mat-icon>
+                      <mat-icon>delete</mat-icon>
+                    </span>
+                  </div>
+                </div>
+              </td>
+              <td [attr.rowspan]="row.activities.length">
+                <div class="cell-list">
+                  <div class="cell-item">
+                    {{ row.type }}
+                    <span class="cell-actions">
+                      <mat-icon>edit</mat-icon>
+                      <mat-icon>delete</mat-icon>
+                    </span>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="cell-list">
+                  <div class="cell-item">
+                    {{ row.activities[0].description }}
+                    <span class="cell-actions">
+                      <mat-icon>edit</mat-icon>
+                      <mat-icon>delete</mat-icon>
+                    </span>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="cell-list">
+                  <div class="cell-item">
+                    {{ row.activities[0].submissions }}
+                    <span class="cell-actions">
+                      <mat-icon>edit</mat-icon>
+                      <mat-icon>delete</mat-icon>
+                    </span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <ng-container *ngFor="let activity of row.activities.slice(1)">
+              <tr>
+                <!-- <td></td>
+                <td></td> -->
+                <td>
+                  <div class="cell-list">
+                    <div class="cell-item">
+                      {{ activity.description }}
+                      <span class="cell-actions">
+                        <mat-icon>edit</mat-icon>
+                        <mat-icon>delete</mat-icon>
+                      </span>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="cell-list">
+                    <div class="cell-item">
+                      {{ activity.submissions }}
+                      <span class="cell-actions">
+                        <mat-icon>edit</mat-icon>
+                        <mat-icon>delete</mat-icon>
+                      </span>
+                    </div>
+                    <!-- <button mat-button class="add-btn">+ Add submission from</button> -->
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+          </ng-container>
+          <tr>
+            <td>
+              <button mat-button class="add-btn">+ Add a role</button>
+            </td>
+            <td>
+              <button mat-button class="add-btn">+ Add a type for the role</button>
+            </td>
+            <td>
+              <button mat-button class="add-btn">+ Add a activity</button>
+            </td>
+            <td>
+              <button mat-button class="add-btn">+ Add submission from</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="flex flex-column gap-2">
+    <div class="form-label required">
+      Add Competency
+    </div>
+    <div>
+      <ws-app-shared-table [tableData]="competencyTableData" [data]="competenciesList"></ws-app-shared-table>
+    </div>
+  </div>
+</div>

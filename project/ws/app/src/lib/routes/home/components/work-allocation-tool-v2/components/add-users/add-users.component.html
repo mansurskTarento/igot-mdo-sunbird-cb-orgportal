@@ -1,0 +1,40 @@
+<div class="add-users p-6 flex flex-column gap-5">
+  <div class="flex flex-column gap-2">
+    <div class="form-label required">
+      Work order Name
+    </div>
+    <mat-form-field appearance="outline">
+      <input matInput placeholder="Enter name here" [formControl]="workOrderName">
+      <mat-error *ngIf="workOrderName.invalid && (workOrderName.dirty || workOrderName.touched)">
+        Work order name is mandatory
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="flex flex-column gap-2">
+    <div class="form-label">
+      Add Users
+    </div>
+    <div class="flex items-center gap-3 search">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-icon matPrefix class="color-60 mat-icon notranslate material-icons mat-icon-no-color">search</mat-icon>
+        <input matInput placeholder="Search user by Name, Email and Phone Number, Designation"
+          [formControl]="userSearch">
+      </mat-form-field>
+      <button mat-button class="flex justify-center items-center add-btn" (click)="openUsersAddPopup()">Add</button>
+    </div>
+  </div>
+
+  <div class="flex-grow">
+    <ws-app-shared-table [tableData]="addedUserTableData"
+      [data]="addedUsersList ? addedUsersList : addAuser"></ws-app-shared-table>
+  </div>
+
+  <!-- #region (footer) -->
+  <div class="footer flex justify-between">
+    <button mat-button>Cancel</button>
+    <button mat-button>Next</button>
+  </div>
+  <!-- #endregion (footer) -->
+
+</div>
