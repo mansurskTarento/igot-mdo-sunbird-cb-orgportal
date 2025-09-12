@@ -105,7 +105,15 @@ import { MAT_DATE_LOCALE } from '@angular/material/core'
 import { MyNotificationsComponent } from './routes/my-notifications/my-notifications.component'
 import { AllNotificationsModule } from '@sunbird-cb/notification'
 import { TranslateModule } from '@ngx-translate/core'
+import { CreateUserComponent } from './routes/directory/create-user/create-user.component'
 import { DirectoryComponent } from './routes/directory/directory.component'
+import { DirectoryTableComponent } from './components/directory-table/directory-table.component'
+import { CreateOrganisationComponent } from './components/create-organisation/create-organisation.component'
+import { InfoModalComponent } from './components/info-modal/info-modal.component'
+import { OrganisationUsersComponent } from './routes/directory/organisation-users/organisation-users.component'
+import { DesignationsMasterComponent } from './routes/directory/designations-master/designations-master.component'
+import { ImportDesignationComponent } from './routes/directory/import-designation/import-designation.component'
+import { DesignationsBuilkUploadComponent } from './routes/directory/designations-builk-upload/designations-builk-upload.component'
 
 @NgModule({
   declarations: [
@@ -159,6 +167,14 @@ import { DirectoryComponent } from './routes/directory/directory.component'
     GroupsGradeComponent,
     MyNotificationsComponent,
     DirectoryComponent,
+    CreateUserComponent,
+    DirectoryTableComponent,
+    CreateOrganisationComponent,
+    InfoModalComponent,
+    OrganisationUsersComponent,
+    DesignationsMasterComponent,
+    ImportDesignationComponent,
+    DesignationsBuilkUploadComponent
   ],
   imports: [
     CommonModule,
